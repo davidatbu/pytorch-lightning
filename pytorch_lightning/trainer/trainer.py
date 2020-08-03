@@ -954,7 +954,7 @@ class Trainer(
 
         # on multi-gpu jobs we only want to manipulate (download, etc) on node_rank=0, local_rank=0
         # or in the case where each node needs to do its own manipulation in which case just local_rank=0
-        if self.can_prepare_data():
+        if True: #self.can_prepare_data():
             if datamodule is not None:
                 datamodule.prepare_data()
             model.prepare_data()
