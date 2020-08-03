@@ -942,7 +942,7 @@ class Trainer(
 
         # set up the passed in dataloaders (if needed)
         self.__attach_dataloaders(model, train_dataloader, val_dataloaders)
-        self.__attach_datamodule(model, datamodule, 'fit')
+        self.__attach_datamodule(model, datamodule)
 
         # check that model is configured correctly
         self.config_validator.verify_loop_configurations(model)
@@ -1082,7 +1082,7 @@ class Trainer(
         if test_dataloaders is not None:
             model.test_dataloader = _PatchDataLoader(test_dataloaders)
 
-    def __attach_datamodule(self, model, datamodule, stage):
+    def __attach_datamodule(self, model, datamodule):
 
         # We use datamodule if it's been provided on .fit or .test, otherwise we check model for it
         datamodule = datamodule or getattr(model, 'datamodule', None)
@@ -1364,7 +1364,6 @@ class Trainer(
 
         # run test
         # sets up testing so we short circuit to eval
-        import pdb; pdb.set_trace()
         self.set_random_port(force=True)
         self.testing = True
         self.model = model
